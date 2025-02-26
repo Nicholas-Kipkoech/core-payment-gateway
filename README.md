@@ -1,71 +1,73 @@
-Backend Software Engineer Technical Interview
-Integrations
+# Backend Software Engineer Technical Interview
 
-1. INTRODUCTION 3
-   1.1. Overview 3
-   1.2. Scope 3
-   1.3. Terminology & Abbreviations 3
-   1.3.1. PG 3
-   1.3.2. CPS 3
-   1.3.3. API 3
-   1.3.4. GwRequest 4
-   1.3.5 .Result 4
-2. TASK 5
-   2.1. Processes 5
-   2.1.1. Receive Payment Request from Core Payments System (CPS) 5
-   2.1.2. Validate, Log & Send to 3rd Party PG 5
-   2.1.3. Receive 3rd Party Callback, Validate, Update Log & Send Result back to CPS 6
-   2.1.4. Query Payment Status using 3rd Party API 6
-   2.2. System Architecture 7
-   2.3. Stack 7
-   2.3.1. Spring, MariaDB & Kafka 7
-   2.3.2. Go, MongoDB & Kafka 7
-3. CONCLUSION 8
+## Integrations
 
-4. INTRODUCTION
-   1.1. Overview
-   The purpose of this document is to outline all the key technical areas that interviewee must be conversant with for them to join the Tanda technical team. The interview uses a real life system for integration. The system of our choice is The Daraja B2C API. This API provides a great challenge and helps Tanda test real life engineering competencies. Please note that Tanda has an existing Daraja B2C integration already in production and your code will be used for evaluation purposes only.
-   1.2. Scope
-   This interview will test:
-   Event-driven/Message-driven/Non-blocking programing
-   Java/Go
-   OAuth 2.0
-   RESTful APIs
-   SQL/NoSQL
-   Scheduling tasks
-   Src code documentation
-   Writing tests
-   1.3. Terminology & Abbreviations
-   1.3.1. PG
-   Payment gateway.
-   1.3.2. CPS
-   Core payments system. Tanda’s billing, ledgers and wallets management platform.
-   1.3.3. API
-   Application programming interface.
-   1.3.4. GwRequest
-   This is the request sent from the Core to a 3rd Party integration that holds data about a payment request.IThe json properties to expect
-   id (uuid) , the transaction id
-   amount (float), the transaction amount
-   mobileNumber (MSISDN), E.164 formatted recipient mobile number
-   1.3.5 .Result
-   This is the payload that is sent back from the 3rd Party integration to the Core. The json properties expected.
-   id (uuid), the transaction id
-   status , the final status
-   ref (string), the mpesa reference
+### 1. INTRODUCTION 3
 
-5. TASK
-   2.1. Processes
-   2.1.1. Receive Payment Request from Core Payments System (CPS)
-   Receive payment request (GwRequest) from CPS via Kafka listening to the provided topic.
-   The payload needs to be validated to ensure it conforms to the specifications of the GwRequest.
-   All mandatory fields should be present
-   Data types should be as expected.
-   2.1.2. Validate, Log & Send to 3rd Party PG
-   Before sending the request you need to validate the payment request.
-   The mobileNumber and amount should be present.
-   The mobileNumber should be a valid kenyan and Safaricom mobile number.
-   The amount should be a valid amount
-   The amount should be between KSh 10 and KSh 150,000.
+1.1. Overview 3
+1.2. Scope 3
+1.3. Terminology & Abbreviations 3
+1.3.1. PG 3
+1.3.2. CPS 3
+1.3.3. API 3
+1.3.4. GwRequest 4
+1.3.5 .Result 4 2. TASK 5
+2.1. Processes 5
+2.1.1. Receive Payment Request from Core Payments System (CPS) 5
+2.1.2. Validate, Log & Send to 3rd Party PG 5
+2.1.3. Receive 3rd Party Callback, Validate, Update Log & Send Result back to CPS 6
+2.1.4. Query Payment Status using 3rd Party API 6
+2.2. System Architecture 7
+2.3. Stack 7
+2.3.1. Spring, MariaDB & Kafka 7
+2.3.2. Go, MongoDB & Kafka 7 3. CONCLUSION 8
+
+### 4. INTRODUCTION
+
+1.1. Overview
+The purpose of this document is to outline all the key technical areas that interviewee must be conversant with for them to join the Tanda technical team. The interview uses a real life system for integration. The system of our choice is The Daraja B2C API. This API provides a great challenge and helps Tanda test real life engineering competencies. Please note that Tanda has an existing Daraja B2C integration already in production and your code will be used for evaluation purposes only.
+1.2. Scope
+This interview will test:
+Event-driven/Message-driven/Non-blocking programing
+Java/Go
+OAuth 2.0
+RESTful APIs
+SQL/NoSQL
+Scheduling tasks
+Src code documentation
+Writing tests
+1.3. Terminology & Abbreviations
+1.3.1. PG
+Payment gateway.
+1.3.2. CPS
+Core payments system. Tanda’s billing, ledgers and wallets management platform.
+1.3.3. API
+Application programming interface.
+1.3.4. GwRequest
+This is the request sent from the Core to a 3rd Party integration that holds data about a payment request.IThe json properties to expect
+id (uuid) , the transaction id
+amount (float), the transaction amount
+mobileNumber (MSISDN), E.164 formatted recipient mobile number
+1.3.5 .Result
+This is the payload that is sent back from the 3rd Party integration to the Core. The json properties expected.
+id (uuid), the transaction id
+status , the final status
+ref (string), the mpesa reference
+
+### 5. TASK
+
+2.1. Processes
+2.1.1. Receive Payment Request from Core Payments System (CPS)
+Receive payment request (GwRequest) from CPS via Kafka listening to the provided topic.
+The payload needs to be validated to ensure it conforms to the specifications of the GwRequest.
+All mandatory fields should be present
+Data types should be as expected.
+2.1.2. Validate, Log & Send to 3rd Party PG
+Before sending the request you need to validate the payment request.
+The mobileNumber and amount should be present.
+The mobileNumber should be a valid kenyan and Safaricom mobile number.
+The amount should be a valid amount
+The amount should be between KSh 10 and KSh 150,000.
 
 After validating , we need to log the payment request to the database. We need to log enough info from the GwRequest to be able to identify the request from the callback and also build a Result payload. The correct status should be used (Pending).
 
