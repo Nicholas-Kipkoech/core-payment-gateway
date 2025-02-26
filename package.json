@@ -1,0 +1,35 @@
+{
+  "name": "core-payment-gateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "lint": "eslint . --ext .ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicholas-Kipkoech/core-payment-gateway.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nicholas-Kipkoech/core-payment-gateway/issues"
+  },
+  "homepage": "https://github.com/Nicholas-Kipkoech/core-payment-gateway#readme",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.5",
+    "express": "^4.21.2",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
+    "typescript-eslint": "^8.25.0"
+  }
+}
